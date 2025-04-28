@@ -1,46 +1,161 @@
-# Getting Started with Create React App
+# Task Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern task management application built with React, TypeScript, and Node.js, featuring user authentication, drag-and-drop task organization, and real-time updates.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User authentication (signup/login)
+- Create, read, update, and delete tasks
+- Drag-and-drop task organization
+- Task prioritization (Low, Medium, High)
+- Task status tracking (To Do/Completed)
+- Responsive design with Material-UI
+- Smooth animations with Framer Motion
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Frontend
+- React 18 with TypeScript
+- Material-UI for UI components
+- React Beautiful DND for drag-and-drop
+- Framer Motion for animations
+- Axios for API requests
+- React Router for navigation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Backend
+- Node.js with Express
+- MongoDB with Mongoose
+- JWT for authentication
+- bcrypt for password hashing
+- dotenv for environment variables
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB (local or Atlas URI)
+- npm or yarn
 
-### `npm run build`
+### Backend Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Create a .env file in the backend directory:
+   ```env
+   MONGODB_URI=your_mongodb_uri
+   JWT_SECRET=your_jwt_secret
+   PORT=5000
+   ```
 
-### `npm run eject`
+4. Start the backend server:
+   ```bash
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Frontend Setup
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Navigate to the frontend directory:
+   ```bash
+   cd task-management
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-## Learn More
+## Database Schema
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### User Schema
+```javascript
+{
+  email: String (required, unique),
+  password: String (required, hashed),
+  createdAt: Date,
+  updatedAt: Date
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Task Schema
+```javascript
+{
+  title: String (required),
+  description: String,
+  priority: String (enum: ['Low', 'Medium', 'High']),
+  completed: Boolean (default: false),
+  userId: ObjectId (reference to User),
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+## Architecture
+
+### Frontend Architecture
+- **Components**: Modular React components using TypeScript
+- **State Management**: React hooks for local state, Context for auth state
+- **API Integration**: Axios instances with interceptors for auth
+- **Routing**: Protected and public routes using React Router
+- **Styling**: Material-UI with custom theme and styled components
+
+### Backend Architecture
+- **MVC Pattern**: Models, Controllers, and Routes separation
+- **Middleware**: Authentication, error handling, and request validation
+- **Database**: MongoDB with Mongoose for data modeling
+- **Security**: JWT tokens, password hashing, and environment variables
+
+## Development Choices
+
+1. **TypeScript**: Chosen for type safety and better developer experience
+2. **Material-UI**: Provides consistent design and responsive components
+3. **React Beautiful DND**: Smooth drag-and-drop with good accessibility
+4. **Framer Motion**: High-performance animations with simple API
+5. **MongoDB**: Flexible schema and good scalability for task management
+
+## Running Locally
+
+1. Start MongoDB service (if using local database)
+2. Start the backend server:
+   ```bash
+   cd backend
+   npm start
+   ```
+3. Start the frontend development server:
+   ```bash
+   cd task-management
+   npm start
+   ```
+4. Access the application at `http://localhost:3000`
+
+## API Endpoints
+
+### Authentication
+- POST /api/auth/register - Register new user
+- POST /api/auth/login - Login user
+
+### Tasks
+- GET /api/tasks - Get all tasks for user
+- POST /api/tasks - Create new task
+- PUT /api/tasks/:id - Update task
+- DELETE /api/tasks/:id - Delete task
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
